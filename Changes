@@ -1,6 +1,7 @@
 Revision history for Perl extension Win32::Process::Kill.
 
-0.1  Mon Apr  6 18:07:02 2009
-	- original version; created by h2xs 1.23 with options
-		-A Win32::Process::Kill
+0.2  2009/4/7 ¤U¤È 02:06:06
+	
 
+0.1  Mon Apr  6 18:07:02 2009
+	 Win32::Process::Kill

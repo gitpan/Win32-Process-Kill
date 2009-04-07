@@ -15,13 +15,13 @@ our @ISA = qw(Exporter);
 # This allows declaration	use Win32::Process::Kill ':all';
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(pTerminate) ] );
+our %EXPORT_TAGS = ( 'all' => [ qw(pTerminate AdjustPrivileges) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw();
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 
 require XSLoader;
 XSLoader::load('Win32::Process::Kill', $VERSION);
@@ -37,22 +37,30 @@ Win32::Process::Kill - Perl extension for Terminating Process in Win32 (R3)
 
   use Win32::Process::Kill qw(pTerminate);
   my $pid = blah blah blah;
-  pTerminate($pid);
+  pTerminate($pid);				#AdjustPrivileges and Kill Process
 
 =head1 DESCRIPTION
 
 	Try to kill Process in diverse ways.
 	if you have any amazing ways to kill process in Win32,
-	please contact me. E<lt>lokchungk@hotmail.com<gt>
+	please contact me. MSN: lokchungk@hotmail.com<gt>
 	I'll keep update the ways for killing process.  
 
 =head2 EXPORT
 
 =head1 SEE ALSO
 
-Win32::Process::List (Find out ProcessId easily)
-L<http://search.cpan.org/dist/Win32-Process-List/List.pm>
+	Win32::Process::List (Find out ProcessId easily)
+	L<http://search.cpan.org/dist/Win32-Process-List/List.pm>
 
+=item AdjustPrivileges
+
+	AdjustPrivileges($_) for 2..30; #Enable all Privileges	
+
+=item pTerminate
+
+	pTerminate($pid); #Adjust Privileges than kill the process
+	
 =head1 AUTHOR
 
 Baggio, Kwok Lok Chung. E<lt>lokchungk@hotmail.com<gt>

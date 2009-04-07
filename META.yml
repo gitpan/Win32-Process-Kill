@@ -1,0 +1,6 @@
+name: Win32-Process-Kill
+version: 0.2
+version_from: SysPrivilege.pm
+installdirs: site
+requires:
+distribution_type: module

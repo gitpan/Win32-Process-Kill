@@ -6,3 +6,6 @@
 MODULE = Win32::Process::Kill		PACKAGE = Win32::Process::Kill		
 int
 pTerminate (int ProcessId)
+
+int
+AdjustPrivileges(int iPName)

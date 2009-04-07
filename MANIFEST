@@ -4,5 +4,6 @@ lib/Win32/Process/Kill.pm
 main.c
 Makefile.PL
 MANIFEST			This list of files
+META.yml
 README
 t/Win32-Process-Kill.t
