@@ -19,9 +19,9 @@ our %EXPORT_TAGS = ( 'all' => [ qw(pTerminate AdjustPrivileges) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
-our @EXPORT = qw();
+our @EXPORT = qw(pTerminate);
 
-our $VERSION = '0.2';
+our $VERSION = '1.0';
 
 require XSLoader;
 XSLoader::load('Win32::Process::Kill', $VERSION);
@@ -35,7 +35,7 @@ Win32::Process::Kill - Perl extension for Terminating Process in Win32 (R3)
 
 =head1 SYNOPSIS
 
-  use Win32::Process::Kill qw(pTerminate);
+  use Win32::Process::Kill;
   my $pid = blah blah blah;
   pTerminate($pid);				#AdjustPrivileges and Kill Process
 
@@ -55,10 +55,12 @@ Win32::Process::Kill - Perl extension for Terminating Process in Win32 (R3)
 
 =item AdjustPrivileges
 
+	use Win32::Process::Kill qw(AdjustPrivileges);
 	AdjustPrivileges($_) for 2..30; #Enable all Privileges	
 
 =item pTerminate
 
+	use Win32::Process::Kill;
 	pTerminate($pid); #Adjust Privileges than kill the process
 	
 =head1 AUTHOR
