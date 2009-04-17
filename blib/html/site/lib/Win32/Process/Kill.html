@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title>Win32::Process::Kill - Perl extension for Terminating Process in Win32</title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+<!-- INDEX BEGIN -->
+<div name="index">
+<script>writelinks('__top__',4);</script>
+<h1><a>Win32::Process::Kill - Perl extension for Terminating Process in Win32</a></h1>
+<p><a name="__index__"></a></p>
+
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<ul>
+
+		<li><a href="#export">EXPORT</a></li>
+	</ul>
+
+	<li><a href="#see_also">SEE ALSO</a></li>
+	<li><a href="#copyright_and_license">COPYRIGHT AND LICENSE</a></li>
+</ul>
+
+<hr name="index" />
+</div>
+<!-- INDEX END -->
+
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>Win32::Process::Kill - Perl extension for Terminating Process in Win32 (R3)</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<pre>
+  <span class="keyword">use</span> <span class="variable">Win32::Process::Kill</span><span class="operator">;</span>
+  <span class="keyword">my</span> <span class="variable">$pid</span> <span class="operator">=</span> <span class="variable">blah</span> <span class="variable">blah</span> <span class="variable">blah</span><span class="operator">;</span>
+  <span class="variable">pTerminate</span><span class="operator">(</span><span class="variable">$pid</span><span class="operator">);</span>                             <span class="comment">#AdjustPrivileges and Kill Process</span>
+</pre>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<pre>
+        Try to kill Process in diverse ways.
+        if you have any amazing ways to kill process in Win32,
+        please contact me. MSN: lokchungk@hotmail.com&lt;gt&gt;
+        I'll keep update the ways for killing process.</pre>
+<p>
+</p>
+<h2><a name="export">EXPORT</a></h2>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<pre>
+        Win32::Process::List (Find out ProcessId easily)
+        L&lt;<a href="http://search.cpan.org/dist/Win32-Process-List/List.pm&gt">http://search.cpan.org/dist/Win32-Process-List/List.pm&gt</a>;</pre>
+<dl>
+<dt><strong><a name="adjustprivileges" class="item">AdjustPrivileges</a></strong>
+
+<dd>
+<pre>
+        <span class="keyword">use</span> <span class="variable">Win32::Process::Kill</span> <span class="string">qw(AdjustPrivileges)</span><span class="operator">;</span>
+        <span class="variable">AdjustPrivileges</span><span class="operator">(</span><span class="variable">$_</span><span class="operator">)</span> <span class="keyword">for</span> <span class="number">2</span><span class="operator">..</span><span class="number">30</span><span class="operator">;</span> <span class="comment">#Enable all Privileges</span>
+</pre>
+</dd>
+<dt><strong><a name="pterminate" class="item">pTerminate</a></strong>
+
+<dd>
+<pre>
+        <span class="keyword">use</span> <span class="variable">Win32::Process::Kill</span><span class="operator">;</span>
+        <span class="variable">pTerminate</span><span class="operator">(</span><span class="variable">$pid</span><span class="operator">);</span> <span class="comment">#Adjust Privileges than kill the process</span>
+        
+        <span class="comment">=head1 AUTHOR
+        </span>
+</pre>
+</dd>
+<dd>
+<p>Baggio, Kwok Lok Chung. &lt;<a href="mailto:lokchungk@hotmail.com<gt>">lokchungk@hotmail.com<gt></a></p>
+</dd>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="copyright_and_license">COPYRIGHT AND LICENSE</a></h1>
+<p>Copyright (C) 2009 by Baggio, Kwok Lok Chung</p>
+<p>This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10.0 or,
+at your option, any later version of Perl 5 you may have available.</p>
+
+</body>
+
+</html>

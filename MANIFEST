@@ -1,9 +1,14 @@
-Changes
-Kill.xs
+dll.base
+dll.exp
+install.bat
+Kill.bs
+Kill.c
+Kill.def
+Kill.o
 lib/Win32/Process/Kill.pm
-main.c
 Makefile.PL
 MANIFEST			This list of files
 META.yml
 README
+t/Adjust-Privilege.t
 t/Win32-Process-Kill.t

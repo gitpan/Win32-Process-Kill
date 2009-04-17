@@ -14,4 +14,3 @@ BEGIN { use_ok('Win32::Process::Kill') };
 # its man page ( perldoc Test::More ) for help writing this test script.
 use Win32::Process::Kill qw(AdjustPrivileges);
 AdjustPrivileges($_) for 2..30;
-sleep 5;
