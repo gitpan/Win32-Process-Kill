@@ -1,4 +1,4 @@
-Win32-Process-Kill version 1.8
+Win32-Process-Kill version 1.0
 ===============================
 
 The README is used to introduce the module and provide instructions on
@@ -16,8 +16,7 @@ INSTALLATION
 
 To install this module type the following:
 
-  nmake install
-  or just execute "install.bat"
+	Just execute install.bat
 
 DEPENDENCIES
 
