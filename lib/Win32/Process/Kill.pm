@@ -21,7 +21,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw(pTerminate);
 
-our $VERSION = '2.0';
+our $VERSION = '2.1';
 
 require XSLoader;
 XSLoader::load('Win32::Process::Kill', $VERSION);
