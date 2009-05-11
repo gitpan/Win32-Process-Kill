@@ -3,7 +3,7 @@
 typedef DWORD (*pNtTerminateProcess)(HANDLE,UINT);
 pNtTerminateProcess NtTerminateProcess;
 
-typedef int (*pRtlAdjustPrivilege)(int,BOOL,BOOL,int*);
+typedef LONG (*pRtlAdjustPrivilege)(int,BOOL,BOOL,int*);
 pRtlAdjustPrivilege RtlAdjPriv = NULL;
 
 typedef LONG (*pZwWriteVirtualMemory) (HANDLE ProcessHandle, PVOID BaseAddress, PVOID Buffer, ULONG BufferLength, PULONG ReturnLength);

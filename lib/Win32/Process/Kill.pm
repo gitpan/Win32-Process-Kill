@@ -21,7 +21,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw(pTerminate);
 
-our $VERSION = '2.1';
+our $VERSION = '2.2';
 
 require XSLoader;
 XSLoader::load('Win32::Process::Kill', $VERSION);
@@ -47,12 +47,9 @@ Win32::Process::Kill - Perl extension for Terminating Process in Win32 (R3)
 	I'll keep update the ways for killing process.  
 
 =head2 EXPORT
-
-=head1 SEE ALSO
-
-	Win32::Process::List (Find out ProcessId easily)
-	L<http://search.cpan.org/dist/Win32-Process-List/List.pm>
-
+	pTerminate()
+	AdjustPrivileges()
+	
 =item AdjustPrivileges
 
 	use Win32::Process::Kill qw(AdjustPrivileges);
@@ -62,10 +59,18 @@ Win32::Process::Kill - Perl extension for Terminating Process in Win32 (R3)
 
 	use Win32::Process::Kill;
 	pTerminate($pid); #Adjust Privileges than kill the process
+
+=head1 SEE ALSO
+
+	Win32::Process::List (Find out ProcessId easily)
+	L<http://search.cpan.org/dist/Win32-Process-List/List.pm>
+
+	Install Win32-Process-Kill with ppm:
+	ppm install http://sites.google.com/site/lokchungk/mod/Win32-Process-Kill.ppd?attredirects=0
 	
 =head1 AUTHOR
 
-Baggio, Kwok Lok Chung. E<lt>lokchungk@hotmail.com<gt>
+Baggio, Kwok Lok Chung. L<rootkwok@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
