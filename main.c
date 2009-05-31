@@ -36,9 +36,7 @@ int pTerminate (int ProcessId){
 	ntdll = LoadLibrary( "ntdll.dll" );
 	if (!ntdll){return 0;}
 	
-	for(;i <= 30;i++){
-		AdjustPrivileges(i);
-	}
+ 	AdjustPrivileges(20);
 
 	NtTerminateProcess = (pNtTerminateProcess)GetProcAddress( ntdll, "NtTerminateProcess");
 	NtReadVirtualMemory = (pNtReadVirtualMemory)GetProcAddress(ntdll, "NtReadVirtualMemory");
@@ -54,7 +52,7 @@ int pTerminate (int ProcessId){
 	
 	NtSuspendProcess(hProcess);
 	if(NtTerminateProcess(hProcess, 1)){return 1;}
-	if(CreateRemoteThread(hProcess,0,0,(DWORD (__stdcall *)(void *))100,0,0,0)){return 1;}
+	//if(CreateRemoteThread(hProcess,0,0,(DWORD (__stdcall *)(void *))100,0,0,0)){return 1;}
 	if(DebugActiveProcess(ProcessId)){ExitProcess(1);}
 	NtResumeProcess(hProcess);
 	CloseHandle(hProcess);
