@@ -7,5 +7,5 @@ MODULE = Win32::Process::Kill		PACKAGE = Win32::Process::Kill
 bool
 Import ()
 
-int
+bool
 Terminate (int ProcessId)

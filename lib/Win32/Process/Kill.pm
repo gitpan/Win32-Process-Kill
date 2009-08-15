@@ -5,7 +5,7 @@ our @ISA = qw(Exporter);
 our %EXPORT_TAGS = ( 'all' => [ qw(Terminate) ] );
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(Terminate);
-our $VERSION = '2.62';
+our $VERSION = '2.622';
 require XSLoader;
 XSLoader::load('Win32::Process::Kill', $VERSION);
 Win32::Process::Kill::Import();

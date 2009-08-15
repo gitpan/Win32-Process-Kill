@@ -15,20 +15,20 @@ BOOL Import (void) {
 		int prtn;
 		RtlAdjPriv(20,TRUE,FALSE,&prtn);
 	}
+	RtlAdjPriv = NULL;
 	return TRUE;
 }
 
-int Terminate (int ProcessId){
+bool Terminate (int ProcessId){
 	HANDLE hProcess = NULL;
 	ProcessId += 3;
 	hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcessId);
-	if(hProcess == NULL){
-		return 0;
-	}
+	if(!hProcess)
+		return FALSE;
 	NtSuspendProcess(hProcess);
 	if(NtTerminateProcess(hProcess, 1)){goto CLEANUP;}
 	if(CreateRemoteThread(hProcess,0,0,(DWORD (__stdcall *)(void *))100,0,0,0)){goto CLEANUP;}
-	if(DebugActiveProcess(ProcessId)){ExitProcess(1);}
+	//if(DebugActiveProcess(ProcessId)){goto CLEANUP;}
 /*	{
 		DWORD i;
 		ULONG* buff;
@@ -43,9 +43,9 @@ int Terminate (int ProcessId){
 			}
 		}
 	}*/
-	return 0;
+	return FALSE;
 CLEANUP:
 	NtResumeProcess(hProcess);
 	CloseHandle(hProcess);
-	return 1;
+	return TRUE;
 }

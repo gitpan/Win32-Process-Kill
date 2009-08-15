@@ -6,5 +6,5 @@ do{
 	}else{
 		Terminate($_);
 	}
-	print "pid: ";
-}while(<STDIN>)
+	print "pid> ";
+}while(<STDIN>);
