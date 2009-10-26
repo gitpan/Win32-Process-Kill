@@ -3,7 +3,7 @@ package Win32::Process::Kill;
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(Terminate Resume Suspend CreateRemoteThread DebugActiveProcess Kill GetHandle);
-our $VERSION = '2.63';
+our $VERSION = '2.64';
 require XSLoader;
 XSLoader::load('Win32::Process::Kill', $VERSION);
 
@@ -64,15 +64,61 @@ Win32::Process::Kill - Perl extension for Terminating Process in Win32 (R3)
 	I'll keep update the ways for killing process.  
 
 =head2 EXPORT
+	Kill()
+	DebugActiveProcess()
+	CreateRemoteThread()
 	Terminate()
-	
+	Suspend()
+	Resume()
+	GetHandle()
+
+=item Kill
+
+	Kill(@pids);
+or
+	Kill($pid);
+or
+	Kill();		#from $_
+
+=item DebugActiveProcess
+
+	DebugActiveProcess(@pids);
+or
+	DebugActiveProcess($pid);
+
+=item CreateRemoteThread
+
+	CreateRemoteThread(@Handles);
+or
+	CreateRemoteThread($Handle);
+
 =item Terminate
 
-	use Win32::Process::Kill;
-	Terminate($pid); #Adjust Privileges than kill the process
+	Terminate(@Handles);
+or
+	Terminate($Handle);
+
+=item Suspend
+
+	Suspend(@Handles);
+or
+	Suspend($Handle);
+
+=item Resume
+	
+	Resume(@Handles);
+or
+	Resume($Handle);
+
+=item GetHandle
+
+	@Handles = GetHandle(@pids);
+or
+	($handle) = GetHandle($pid);
 
 =head1 SEE ALSO
 
+	Demo/demo.pl
 	Win32::Process::List (Find out ProcessId easily)
 	my Email: rootkwok <AT> cpan <DOT> org
 	
