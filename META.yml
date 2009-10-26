@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Win32-Process-Kill
-version:            2.622
+version:            2.63
 abstract:           Perl extension for Terminating Process in Win32 (R3)
 author:
     - Baggio, Kwok Lok Chung  <lokchungk@hotmail.com>
@@ -15,7 +15,7 @@ no_index:
     directory:
         - t
         - inc
-generated_by:       ExtUtils::MakeMaker version 6.54
+generated_by:       ExtUtils::MakeMaker version 6.55_02
 meta-spec:
     url:      http://module-build.sourceforge.net/META-spec-v1.4.html
     version:  1.4

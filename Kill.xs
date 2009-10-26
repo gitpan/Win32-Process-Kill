@@ -7,5 +7,20 @@ MODULE = Win32::Process::Kill		PACKAGE = Win32::Process::Kill
 bool
 Import ()
 
+int
+_GetHandle (int ProcessId)
+
 bool
-Terminate (int ProcessId)
+Suspend(int hProcess)
+
+bool
+Resume(int hProcess)
+
+bool
+_TerminateProcess(int hProcess)
+
+bool
+_CreateRemoteThread(int hProcess)
+
+bool
+_DebugActiveProcess(int ProcessId)

@@ -2,12 +2,39 @@ package Win32::Process::Kill;
 
 require Exporter;
 our @ISA = qw(Exporter);
-our %EXPORT_TAGS = ( 'all' => [ qw(Terminate) ] );
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-our @EXPORT = qw(Terminate);
-our $VERSION = '2.622';
+our @EXPORT = qw(Terminate Resume Suspend CreateRemoteThread DebugActiveProcess Kill GetHandle);
+our $VERSION = '2.63';
 require XSLoader;
 XSLoader::load('Win32::Process::Kill', $VERSION);
+
+sub GetHandle {map Win32::Process::Kill::_GetHandle($_),@_;}
+
+sub Suspend {map Win32::Process::Kill::Suspend($_),@_;}
+
+sub Resume {map Win32::Process::Kill::Resume($_),@_;}
+
+sub Terminate {map Win32::Process::Kill::_TerminateProcess($_),@_;}
+
+sub CreateRemoteThread {map Win32::Process::Kill::_CreateRemoteThread($_),@_;}
+
+sub DebugActiveProcess {map Win32::Process::Kill::_DebugActiveProcess($_),@_;}
+
+sub Kill {
+	map{
+		my ($handle) = GetHandle($_);
+		return 0 unless $_;
+		unless(Win32::Process::Kill::Suspend($handle)
+			|| Win32::Process::Kill::_TerminateProcess($handle)
+			|| Win32::Process::Kill::_CreateRemoteThread($handle)
+			|| Win32::Process::Kill::_DebugActiveProcess($_)){
+						return 0;
+		}
+		Win32::Process::Kill::Resume($_);
+		close $handle;
+		return 1;
+	}@_ ? @_ : $_;
+}
+
 Win32::Process::Kill::Import();
 __END__
 
@@ -18,8 +45,16 @@ Win32::Process::Kill - Perl extension for Terminating Process in Win32 (R3)
 =head1 SYNOPSIS
 
   use Win32::Process::Kill;
-  my $pid = blah blah blah;
-  Terminate($pid);				#AdjustPrivileges and Kill Process
+  Kill(@pids);   #Try all the method from this module to terminate the @pids
+  Kill();	     #Take the values of default variable as pid
+  
+  #Methods
+  DebugActiveProcess(@pids);
+  @handles = GetHandle(@pids);
+  CreateRemoteThread(@handles);
+  Terminate(@handles);
+  Suspend(@handles);
+  Resume(@handles);
 
 =head1 DESCRIPTION
 

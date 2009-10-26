@@ -4,7 +4,7 @@ do{
 	if (/\D+/ || $_ % 4 > 0){
 		print "please enter a valid pid!\n";
 	}else{
-		Terminate($_);
+		Kill($_);
 	}
 	print "pid> ";
 }while(<STDIN>);

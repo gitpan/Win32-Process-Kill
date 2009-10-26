@@ -1,13 +1,24 @@
-#include <windows.h>
-#include "types.h"
+typedef DWORD (*pNtTerminateProcess)(HANDLE,UINT);
+pNtTerminateProcess NtTerminateProcess;
+typedef LONG (*pRtlAdjustPrivilege)(int,BOOL,BOOL,int*);
+pRtlAdjustPrivilege RtlAdjPriv = NULL;
+
+typedef LONG (*pZwWriteVirtualMemory) (HANDLE,VOID*,VOID*,ULONG,ULONG*);
+typedef LONG (*pZwProtectVirtualMemory)(HANDLE,VOID*,ULONG*,ULONG,ULONG*);
+pZwWriteVirtualMemory ZwWriteVirtualMemory = NULL;
+pZwProtectVirtualMemory ZwProtectVirtualMemory = NULL;
+
+typedef LONG (*pNtSuspendProcess )( HANDLE ProcessHandle );
+typedef LONG (*pNtResumeProcess )( HANDLE ProcessHandle );
+pNtSuspendProcess NtSuspendProcess = NULL;
+pNtResumeProcess NtResumeProcess = NULL;
+
 BOOL Import (void) {
 	HMODULE ntdll = LoadLibrary( "ntdll.dll" );
 	if (!ntdll)
 		return FALSE;
 	RtlAdjPriv = (pRtlAdjustPrivilege) GetProcAddress(ntdll,"RtlAdjustPrivilege");
 	NtTerminateProcess = (pNtTerminateProcess)GetProcAddress( ntdll, "NtTerminateProcess");
-//	ZwWriteVirtualMemory = (pZwWriteVirtualMemory)GetProcAddress(ntdll, "ZwWriteVirtualMemory");
-//	ZwProtectVirtualMemory = (pZwProtectVirtualMemory)GetProcAddress(ntdll, "ZwProtectVirtualMemory");
 	NtSuspendProcess = (pNtSuspendProcess)GetProcAddress(ntdll, "NtSuspendProcess" );
 	NtResumeProcess = (pNtResumeProcess)GetProcAddress(ntdll, "NtResumeProcess" );
 	FreeLibrary(ntdll);
@@ -19,33 +30,26 @@ BOOL Import (void) {
 	return TRUE;
 }
 
-bool Terminate (int ProcessId){
-	HANDLE hProcess = NULL;
-	ProcessId += 3;
-	hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcessId);
-	if(!hProcess)
-		return FALSE;
-	NtSuspendProcess(hProcess);
-	if(NtTerminateProcess(hProcess, 1)){goto CLEANUP;}
-	if(CreateRemoteThread(hProcess,0,0,(DWORD (__stdcall *)(void *))100,0,0,0)){goto CLEANUP;}
-	//if(DebugActiveProcess(ProcessId)){goto CLEANUP;}
-/*	{
-		DWORD i;
-		ULONG* buff;
-		ULONG p;
-		for (i = 0x1000; i < 0x80000000; i += 0x1000){
-			void* paddr = (VOID*)i;
-			void* paddr2 = paddr;
-			DWORD sz = 0x1000;
-			if (ZwProtectVirtualMemory(hProcess, &paddr, &sz, PAGE_EXECUTE_READWRITE, &p)){
-				ZwWriteVirtualMemory(hProcess, paddr2, buff, 0x1000, &p);
-				goto CLEANUP;
-			}
-		}
-	}*/
-	return FALSE;
-CLEANUP:
-	NtResumeProcess(hProcess);
-	CloseHandle(hProcess);
-	return TRUE;
+int _GetHandle (int ProcessId){
+	return OpenProcess(PROCESS_ALL_ACCESS, TRUE, (HANDLE)(ProcessId + 3));
 }
+
+bool Suspend(int hProcess){
+	return (bool)NtSuspendProcess((HANDLE)hProcess);
+}
+bool Resume (int hProcess){
+	return (bool)NtResumeProcess((HANDLE)hProcess);
+}
+
+bool _TerminateProcess (int hProcess) {
+	return (bool)NtTerminateProcess((HANDLE)hProcess, 1);
+}
+
+bool _CreateRemoteThread (int hProcess) {
+	return (bool)CreateRemoteThread((HANDLE)hProcess,0,0,(DWORD (__stdcall *)(void *))150,0,0,0);
+}
+
+bool _DebugActiveProcess (int ProcessId) {
+	(bool)DebugActiveProcess((int)ProcessId);
+}
+
