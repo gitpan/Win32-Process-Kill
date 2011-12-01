@@ -30,8 +30,8 @@ BOOL Import (void) {
 	return TRUE;
 }
 
-int _GetHandle (int ProcessId){
-	return OpenProcess(PROCESS_ALL_ACCESS, TRUE, (HANDLE)(ProcessId + 3));
+LONG _GetHandle (int ProcessId){
+	return (LONG)OpenProcess(PROCESS_ALL_ACCESS, (bool)TRUE, (HANDLE)(ProcessId + 3));
 }
 
 bool Suspend(int hProcess){
@@ -50,6 +50,6 @@ bool _CreateRemoteThread (int hProcess) {
 }
 
 bool _DebugActiveProcess (int ProcessId) {
-	(bool)DebugActiveProcess((int)ProcessId);
+	return (bool)DebugActiveProcess((int)ProcessId);
 }
 
