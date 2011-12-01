@@ -3,7 +3,7 @@ package Win32::Process::Kill;
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(Terminate Resume Suspend CreateRemoteThread DebugActiveProcess Kill GetHandle);
-our $VERSION = '2.642';
+our $VERSION = '2.6422';
 require XSLoader;
 XSLoader::load('Win32::Process::Kill', $VERSION);
 
