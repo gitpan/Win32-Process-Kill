@@ -5,7 +5,7 @@ WriteMakefile(
     PREREQ_PM         => {},
     ($] >= 5.005 ?
       (ABSTRACT_FROM  => 'lib/Win32/Process/Kill.pm',
-       AUTHOR         => 'Baggio, Kwok Lok Chung  <lokchungk@hotmail.com>') : ()),
+       AUTHOR         => 'Baggio, Kwok Lok Chung  <rootkwok@cpan.org>') : ()),
     LIBS              => [''],
     DEFINE            => '',
     INC               => '-I.',

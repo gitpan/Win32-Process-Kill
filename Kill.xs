@@ -4,23 +4,23 @@
 #include "main.c"
 
 MODULE = Win32::Process::Kill		PACKAGE = Win32::Process::Kill		
-bool
+int
 Import ()
 
-int
+long
 _GetHandle (int ProcessId)
 
 bool
-Suspend(int hProcess)
+Suspend(long hProcess)
 
 bool
-Resume(int hProcess)
+Resume(long hProcess)
 
 bool
-_TerminateProcess(int hProcess)
+_TerminateProcess(long hProcess)
 
 bool
-_CreateRemoteThread(int hProcess)
+_CreateRemoteThread(long hProcess)
 
 bool
 _DebugActiveProcess(int ProcessId)

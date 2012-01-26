@@ -3,39 +3,53 @@ package Win32::Process::Kill;
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(Terminate Resume Suspend CreateRemoteThread DebugActiveProcess Kill GetHandle);
-our $VERSION = '2.6422';
+our $VERSION = '2.68';
 require XSLoader;
 XSLoader::load('Win32::Process::Kill', $VERSION);
+use Carp qw' croak carp ';
 
-sub GetHandle {map Win32::Process::Kill::_GetHandle($_),@_;}
+$::DEBUG = 0;
 
-sub Suspend {map Win32::Process::Kill::Suspend($_),@_;}
+sub GetHandle { map Win32::Process::Kill::_GetHandle($_), @_ }
 
-sub Resume {map Win32::Process::Kill::Resume($_),@_;}
+sub Suspend { map Win32::Process::Kill::Suspend($_), @_ }
 
-sub Terminate {map Win32::Process::Kill::_TerminateProcess($_),@_;}
+sub Resume { map Win32::Process::Kill::Resume($_), @_ }
 
-sub CreateRemoteThread {map Win32::Process::Kill::_CreateRemoteThread($_),@_;}
+sub Terminate { map Win32::Process::Kill::_TerminateProcess($_), @_ }
 
-sub DebugActiveProcess {map Win32::Process::Kill::_DebugActiveProcess($_),@_;}
+sub CreateRemoteThread { map Win32::Process::Kill::_CreateRemoteThread($_), @_}
+
+sub DebugActiveProcess { map Win32::Process::Kill::_DebugActiveProcess($_), @_ }
 
 sub Kill {
-	map{
-		my ($handle) = GetHandle($_);
+    # return a list so that users can know which process is killed successfully
+	map {
+
 		return 0 unless $_;
-		unless(Win32::Process::Kill::Suspend($handle)
-			|| Win32::Process::Kill::_TerminateProcess($handle)
-			|| Win32::Process::Kill::_CreateRemoteThread($handle)
-			|| Win32::Process::Kill::_DebugActiveProcess($_)){
-						return 0;
-		}
+		my ($handle) = GetHandle($_);
+
+        if ( ! Win32::Process::Kill::Suspend($handle)
+            && $::DEBUG > 0 ) {
+            carp "Failed to Suspend Process...\nBut still fine\n";
+        }
+
+		unless ( Win32::Process::Kill::_TerminateProcess($handle)
+		      || Win32::Process::Kill::_CreateRemoteThread($handle)
+		      || Win32::Process::Kill::_DebugActiveProcess($_) ) {
+            croak "Failed to terminate the process.\n" if $::DEBUG > 0;
+            return 0;
+        }
+		
 		Win32::Process::Kill::Resume($_);
 		close $handle;
+
 		return 1;
-	}@_ ? @_ : $_;
+	} @_ ? @_ : $_;
+
 }
 
-Win32::Process::Kill::Import();
+Win32::Process::Kill::Import()
 __END__
 
 =head1 NAME
