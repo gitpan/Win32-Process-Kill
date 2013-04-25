@@ -3,7 +3,7 @@ package Win32::Process::Kill;
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(Terminate Resume Suspend CreateRemoteThread DebugActiveProcess Kill GetHandle);
-our $VERSION = '2.68';
+our $VERSION = '2.68_01';
 require XSLoader;
 XSLoader::load('Win32::Process::Kill', $VERSION);
 use Carp qw' croak carp ';
@@ -12,9 +12,9 @@ $::DEBUG = 0;
 
 sub GetHandle { map Win32::Process::Kill::_GetHandle($_), @_ }
 
-sub Suspend { map Win32::Process::Kill::Suspend($_), @_ }
+sub Suspend { map Win32::Process::Kill::_Suspend($_), @_ }
 
-sub Resume { map Win32::Process::Kill::Resume($_), @_ }
+sub Resume { map Win32::Process::Kill::_Resume($_), @_ }
 
 sub Terminate { map Win32::Process::Kill::_TerminateProcess($_), @_ }
 
@@ -28,7 +28,8 @@ sub Kill {
 
 		return 0 unless $_;
 		my ($handle) = GetHandle($_);
-
+        my $ref = \$handle;
+        bless($ref, 'Win32::Process::Kill::Handle');
         if ( ! Win32::Process::Kill::Suspend($handle)
             && $::DEBUG > 0 ) {
             carp "Failed to Suspend Process...\nBut still fine\n";
@@ -41,15 +42,19 @@ sub Kill {
             return 0;
         }
 		
-		Win32::Process::Kill::Resume($_);
-		close $handle;
+		Win32::Process::Kill::_Resume($_);
 
 		return 1;
 	} @_ ? @_ : $_;
 
 }
 
-Win32::Process::Kill::Import()
+package Win32::Process::Kill::Handle;
+sub DESTROY {
+    die "CloseHandle failed" if !_CloseHandle(${$_[0]}) && $::DEBUG > 0;
+}
+
+1;
 __END__
 
 =head1 NAME
@@ -139,6 +144,8 @@ or
 =head1 AUTHOR
 
 Baggio, Kwok Lok Chung. <rootkwok <AT> cpan <DOT> org>
+
+patches by Daniel Dragan <bulkdd <AT> cpan <DOT> org>
 
 =head1 COPYRIGHT AND LICENSE
 
